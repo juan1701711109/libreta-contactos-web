@@ -1,0 +1,152 @@
+$color-oscuro: #101a26;
+$color-primario: #026873;
+$color-secundario: #054a59;
+$color3: #29bfbe;
+$color4: #35f2de;
+$color-texto: #fff;
+$rojo: #b00020;
+$verde: #4caf50;
+
+.primario {
+    background: $color-primario !important;
+}
+
+.secundario {
+    background: $color-secundario;
+}
+
+.terciario {
+    background: $color3;
+}
+
+.rojo {
+background: $rojo;
+}
+
+.texto-rojo {
+    color: $rojo;
+}
+
+.texto-verde {
+    color: $verde;
+}
+
+.texto-azul {
+    color: $color-secundario;
+}
+.texto-azul-claro {
+    color: $color-primario;
+}
+
+.main {
+    background: $color-primario;
+    overflow: hidden;
+    box-shadow: 1vh 2vh 5vh #000;
+    margin: auto;
+}
+
+.ancho-modal {
+    width: 60%;
+}
+
+.letra-pequeña {
+    font-size: 10px;
+}
+
+.errorF {
+    color: $color-texto;
+    font-size: 12px;
+}
+
+.btn {
+    width: 7em;
+    color: $color-texto;
+    padding: 0.5em 0;
+    margin-bottom: 1em;
+    border-radius: 1vh;
+}
+.btn-normal {
+    color: $color-texto;
+    padding: 0.5em 0;
+    margin-bottom: 1em;
+    border-radius: 1vh;
+}
+
+.select {
+    background: $color-texto;
+    width: 100%;
+    outline: none;
+    -webkit-appearance: button;
+    border-radius: 2vh;
+    height: 3em;
+}
+
+.input {
+    width: 100%;
+    background: $color-texto;
+    justify-content: center;
+    display: flex;
+    margin: auto;
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-radius: 2vh;
+}
+
+.input-secundario {
+    width: 100%;
+    background: $color-secundario;
+    color: $color-texto;
+    justify-content: center;
+    display: flex;
+    margin: auto;
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-radius: 2vh;
+}
+
+.pad {
+    padding: 0 12px !important;
+}
+
+.pad-bottom {
+    padding-bottom: 0 !important;
+}
+
+.puntero {
+    cursor: pointer;
+}
+
+.input-secundario::placeholder {
+    color: $color-texto;
+}
+  
+.outline {
+    border: 1px solid $color-secundario;
+    border-radius: 10px;
+    background: $color-primario;
+}
+
+.redondear {
+    border-radius: 10px;
+}
+
+.texto-blanco {
+   color: $color-texto;
+}
+
+.tamaño-nombre {
+    line-height: 4vh;
+    max-height: 4vh;
+    overflow: hidden;
+}
+
+.tamaño-estado {
+    max-height: 4vh;
+    overflow: hidden;
+}
+
+button:hover {
+    box-shadow: 1px 1px 5px $color-oscuro;
+}

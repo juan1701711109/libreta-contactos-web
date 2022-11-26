@@ -15,15 +15,28 @@
           width="40"
         />
 
-        <h1>Contacts</h1>
+        <v-btn v-if="sesion" text :to="{name: 'home'}"><h1>Contacts</h1></v-btn>
       </div>
 
       <v-spacer></v-spacer>
-
       <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
+        class="mx-2"
+        fab
+        dark
+        small
+        color="pink"
+        :to="{name: 'favorites'}" 
+        v-if="sesion"
+      >
+        <v-icon dark>
+          mdi-heart
+        </v-icon>
+      </v-btn>
+      <v-btn
+        @click="logout"
         target="_blank"
         text
+        v-if="sesion"
       >
         <span class="mr-2">logout</span>
         <v-icon>mdi-open-in-new</v-icon>
@@ -37,12 +50,44 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 
 export default {
   name: 'App',
 
   data: () => ({
-    //
+    sesion: false,
+    isRouterAlive: true
   }),
+  mounted() {
+    if(!localStorage.getItem('token')) {
+        this.sesion = false;
+      } else {
+        this.sesion = true;
+      }
+  },
+  provide() {
+    return {
+      reload: this.reload
+    }
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem('token');
+      Swal.fire({
+        title: "Logout",
+        text: 'Loading...',
+        icon: "success",
+        confirmButtonText: "Aceptar",
+      })
+      this.$router.push('/auth');
+    },
+    reload() {
+      this.isRouterAlive = false;
+      this.$nextTick(function() {
+        this.isRouterAlive = true;
+      })
+    }
+  }
 };
 </script>
