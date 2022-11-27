@@ -127,7 +127,7 @@
         </v-row>
       </template>
     </v-row>
-    <v-row>
+    <v-row v-if="contacts.length > 0">
       <v-row wrap class="mx-2">
 			<v-col cols="12" sm="6" md="4" lg="3" v-for="contact in contacts" :key="contact.id">
 				<v-card
@@ -205,6 +205,9 @@
 			</v-col>
 		</v-row>
     </v-row>
+    <v-row v-else>
+      <NoResults/>
+    </v-row>
 
     <v-row>
         <!-- Modal Eliinar -->
@@ -244,6 +247,8 @@ import { getData, postData, deleteData, putData } from "@/request/request.js";
 import { idUser } from "@/config/auth";
 
 import Swal from 'sweetalert2';
+import NoResults from '@/components/NoResults.vue';
+
 
 export default defineComponent({
   name: 'Contacts',
@@ -435,6 +440,7 @@ export default defineComponent({
   components: {
     AddButton,
     CreateContact,
+    NoResults
   }
 })
 </script>

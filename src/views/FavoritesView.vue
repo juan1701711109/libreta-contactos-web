@@ -1,6 +1,6 @@
 <template>
   <v-row class="mt-5">
-      <v-row wrap class="mx-2">
+      <v-row wrap class="mx-2" v-if="contactsFavorites.length > 0">
 			<v-col cols="12" sm="6" md="4" lg="3" v-for="contact in contactsFavorites" :key="contact.id">
 				<v-card
 				class="mx-auto my-1"
@@ -49,6 +49,9 @@
 				</v-card>
 			</v-col>
 		</v-row>
+    <v-row v-else>
+      <NoResults/>
+    </v-row>
     </v-row>
 </template>
 
@@ -56,10 +59,13 @@
 import { defineComponent } from 'vue'
 
 import { getData, postData, deleteData, putData } from "@/request/request.js";
-
+import NoResults from '@/components/NoResults.vue';
 import Swal from 'sweetalert2'; 
   export default defineComponent({
     name: 'Favorites',
+    components: {
+      NoResults
+    },
     data: () => ({
       contacts: [],
       contactsFavorites: [],
