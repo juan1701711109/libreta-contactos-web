@@ -2,6 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import NotFound from '@/components/NotFound'
+import { isAuthenticated } from "@/config/auth.js";
+import Swal from 'sweetalert2';
+
 
 Vue.use(VueRouter)
 
@@ -44,5 +47,8 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+
+
 
 export default router

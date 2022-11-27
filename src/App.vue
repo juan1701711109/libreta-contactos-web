@@ -5,20 +5,22 @@
       color="primary"
       dark
     >
-      <div class="d-flex align-center">
+      <div class="d-flex align-center d-flex">
         <v-img
           alt="Vuetify Logo"
           class="shrink mr-2"
           contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+          src="https://www.freeiconspng.com/thumbs/contact-icon-png/contact-icon-new-21.png"
           transition="scale-transition"
           width="40"
         />
 
-        <v-btn v-if="sesion" text :to="{name: 'home'}"><h1>Contacts</h1></v-btn>
+        <v-row><v-btn v-if="sesion" text :to="{name: 'home'}"><h1>Contacts</h1></v-btn></v-row>
+        
       </div>
-
+      
       <v-spacer></v-spacer>
+      <!-- <v-btn v-if="sesion" text :to="{name: 'home'}"><h1>{{name}}</h1></v-btn> -->
       <v-btn
         class="mx-2"
         fab
@@ -39,7 +41,6 @@
         v-if="sesion"
       >
         <span class="mr-2">logout</span>
-        <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
     </v-app-bar>
 
@@ -51,13 +52,14 @@
 
 <script>
 import Swal from 'sweetalert2';
-
+import { nameUser } from '@/config/auth'
 export default {
   name: 'App',
 
   data: () => ({
     sesion: false,
-    isRouterAlive: true
+    isRouterAlive: true,
+    name: ""
   }),
   mounted() {
     if(!localStorage.getItem('token')) {
@@ -65,6 +67,7 @@ export default {
       } else {
         this.sesion = true;
       }
+    this.name = nameUser();
   },
   provide() {
     return {

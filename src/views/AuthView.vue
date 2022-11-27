@@ -159,8 +159,8 @@
       async register() {
         await postData("auth/register", this.user, false)
         .then(res => {
-            console.log(res)
-            if(res.success) {
+          if(res.success) {
+              localStorage.setItem('token', res.token);
               Swal.fire({
                 title: res.mess,
                 text: 'Loading...',

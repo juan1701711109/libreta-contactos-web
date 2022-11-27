@@ -1,5 +1,6 @@
 <template>
   <div class="mx-5 mt-3">
+    <v-row><h1>Mis Contacto</h1></v-row>
     <v-row>
       <AddButton @abrirModal="abrirFormCU" />
     </v-row>
@@ -58,6 +59,7 @@
                       <input
                           class="input"
                           v-model="contact.email"
+                          type="email"
                           placeholder="Email"
                           required
                         />
@@ -238,9 +240,10 @@ import { defineComponent } from 'vue';
 import AddButton from '@/components/AddButton.vue';
 import CreateContact from '@/components/CreateContact.vue';
 
-  import { getData, postData, deleteData, putData } from "@/request/request.js";
+import { getData, postData, deleteData, putData } from "@/request/request.js";
+import { idUser } from "@/config/auth";
 
-  import Swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 
 export default defineComponent({
   name: 'Contacts',
@@ -294,6 +297,8 @@ export default defineComponent({
     },
     async crearContacto() {
       this.dialog = false;
+      let id = idUser();
+      this.contact.user_id = id;
       await postData("contacts", this.contact, true)
         .then(res => {
             if(res.success) {
@@ -390,10 +395,11 @@ export default defineComponent({
         }
       },
     async getContacts() {
-          await getData(`contacts`)
+      let id = idUser();
+          await getData(`contacts/user/${id}`)
               .then(res => {
                   console.log(res.success)
-                  this.contacts = res.contacts;
+                  this.contacts = res.contact;
                   if(!res.success) {
                     Swal.fire({
                       title: "¡Error!",
