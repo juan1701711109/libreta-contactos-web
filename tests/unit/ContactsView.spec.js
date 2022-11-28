@@ -22,6 +22,5 @@ describe("Card.vue", () => {
 describe("ContactsView.vue", () => {
   it("renders slots when passed", () => {
     const wrapper = mount(ContactsView);
-    console.log(wrapper.html())
   });
 });

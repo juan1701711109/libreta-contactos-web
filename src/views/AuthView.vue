@@ -105,10 +105,10 @@
       dialog: false
     }),
     methods: {
+      //Inicia la sesion del usuario y guarda el token en el localStorage
       async login() {
         await postData("auth/login", this.user, false)
         .then(res => {
-            console.log(res.token)
             if(res.success) {
               localStorage.setItem('token', res.token)
               Swal.fire({
@@ -137,10 +137,12 @@
 
         this.$router.push('/');
       },
+    //establece los valores iniciales de las variables
       resetForm() {
         this.dialog = false;
         this.user = {}
       },
+    //Verifica el correcto ingreso de los datos en el formulario
       async verificarFormulario() {
         this.errors = {};
         if (!this.user.username) {
@@ -156,6 +158,7 @@
           console.log(this.errors)
         }
       },
+      //Crea un nuevo usuario y guarda token en localStorage
       async register() {
         await postData("auth/register", this.user, false)
         .then(res => {

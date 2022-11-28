@@ -73,15 +73,16 @@ import Swal from 'sweetalert2';
       editId: 0,
     }),
     mounted() {
+      //Verifica que el usuario este logeado
       if(!localStorage.getItem('token')) {
         this.$router.push('/auth');
       }
     },
     methods: {
+      //Obtiene todos los contactos del usuario
       async getContacts() {
         await getData(`contacts`)
           .then(res => {
-              console.log(res.success)
               this.contacts = res.contacts;
               if(!res.success) {
                 Swal.fire({
@@ -101,8 +102,8 @@ import Swal from 'sweetalert2';
               });
             })
             this.getContactsFavorites();
-            console.log(this.contactsFavorites)
       },
+      //Filtra entre los contactos del usuario los marcados como favoritos
       getContactsFavorites() {
         this.contacts.forEach(contact => {
           if(contact.favorite == true) {
@@ -110,6 +111,7 @@ import Swal from 'sweetalert2';
           }
         });
       },
+      //Remueve al contacto de favoritos
       async editarContacto() {
           this.dialog = false;
         await putData(`contacts/${this.editId}`, this.contact)
@@ -143,7 +145,6 @@ import Swal from 'sweetalert2';
         this.cargarDatosContactoEditar(id)
         this.contact.favorite = 0;
         this.editId = this.contact.id;
-        console.log(this.contact)
         await this.editarContacto();
         this.contactsFavorites = [];
         await this.getContactsFavorites();

@@ -139,7 +139,6 @@
       },
       resetForm() {
         this.abrir = false;
-        console.log('cancelar')
       },
     },
     computed: {

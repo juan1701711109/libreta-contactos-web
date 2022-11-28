@@ -263,17 +263,20 @@ export default defineComponent({
   }),
   inject: ['reload'],
   mounted() {
+    //Verifica que el usuario este logeado
     if(!localStorage.getItem('token')) {
       this.$router.push('/auth');
     }
     this.reload()
   },
   methods: {
+    //Abre modal de creacion de contacto
     abrirFormCU() {
       this.dialog = true;
       this.editando = false;
       this.getContacts();
     },
+    //Verifica el correcto ingreso de los datos en el formulario
     async verificarFormulario() {
       this.errors = {};
       if (!this.contact.name) {
@@ -290,6 +293,7 @@ export default defineComponent({
         console.log(this.errors)
       }
     },
+    //establece los valores iniciales de las variables
     resetForm() {
       this.dialog = false;
       this.editando = false;
@@ -300,6 +304,7 @@ export default defineComponent({
       this.editId = 0;
       this.getContacts();
     },
+    //Crea contacto con los valores ingresados
     async crearContacto() {
       this.dialog = false;
       let id = idUser();
@@ -332,6 +337,8 @@ export default defineComponent({
         });
       this.getContacts();
     },
+    //Obtiene os vallores e contcto eecciondo y los guarda en la variable
+    //contact, abre modal de edicion
     cargarDatosContactoEditar(id) {
       this.dialog = true;
       this.contacts.forEach(contact => {
@@ -342,6 +349,7 @@ export default defineComponent({
       this.editId = id;
       this.editando = true;
     },
+    //Edita los valores del contacto seleccionado
     async editarContacto() {
           this.dialog = false;
         await putData(`contacts/${this.editId}`, this.contact)
@@ -371,15 +379,16 @@ export default defineComponent({
               }); 
           })
       },
+    //Abre el modal de confirmacion ded elliminaacion y guarda id de contacto selleccionado
     deletedSelect(id) {
       this.deleteId = id;
       this.dialogDelete = true;
     },
+    //elllimina el contacto seleccionado 
     async deleteContact(eliminar) {
       if(eliminar){
         await deleteData(`contacts/${this.deleteId}`, this.deleteId, true)
           .then(res => {
-             console.log(res)
               Swal.fire({
               title: "Contacto eliminado Exitosamente!",
               text: res.message,
@@ -394,16 +403,16 @@ export default defineComponent({
               icon: "error",
               confirmButtonText: "Aceptar",
             }); 
-            console.log(error)
           })
           this.resetForm();
         }
       },
+    //Obtiene losss contactos aalmacenadddos por el usuario logeaado y los guarda
+    //en la vaariablle contacts
     async getContacts() {
       let id = idUser();
           await getData(`contacts/user/${id}`)
               .then(res => {
-                  console.log(res.success)
                   this.contacts = res.contact;
                   if(!res.success) {
                     Swal.fire({
@@ -422,19 +431,18 @@ export default defineComponent({
                       confirmButtonText: "Aceptar",
                   });
               })
-
-              console.log(this.contacts)
       },
+    //Edita atributo favorite de contacto a true 
     async addFavorite(id) {
       this.cargarDatosContactoEditar(id)
       this.dialog = false;
       this.contact.favorite = 1;
       this.editId = this.contact.id;
-      console.log(this.contact)
       await this.editarContacto();
     }
   },
   async created() {
+    //Obtiene los contactos del usuario para mostrarlos cuando cargue la vista
     await this.getContacts();
   },
   components: {
